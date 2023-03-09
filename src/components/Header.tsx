@@ -7,7 +7,7 @@ const Header = () => {
       <ul>
         <li>
           <Link to="/" className="btn btn-ghost mr-2">
-            Homessssss
+            Home
           </Link>
         </li>
         <li>
