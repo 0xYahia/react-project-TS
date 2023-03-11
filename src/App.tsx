@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+interface props {
+  track: "UI";
+}
 import Cart from "./components/Cart";
 import About from "./components/About";
 import AboutCopmany from "./components/AboutCopmany";
@@ -8,6 +10,7 @@ import Header from "./components/Header";
 import AboutTeam from "./components/AboutTeam";
 import Product from "./components/Product";
 import ErrorPage from "./components/ErrorPage";
+import ITI from "./components/ITI";
 
 export default function App() {
   const [counters, seCounters] = useState([
@@ -62,9 +65,11 @@ export default function App() {
             <Route path="team" element={<AboutTeam />} />
           </Route>
           <Route path="/product/:productid/:country?" element={<Product />} />
+
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
+      <ITI />
     </div>
   );
 }
