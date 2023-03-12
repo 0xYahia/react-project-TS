@@ -15,14 +15,19 @@ const Header = () => {
             About
           </Link>
         </li>
-        <li>
-          <Link to="about/company" className="btn btn-ghost mr-2">
+        {/* <li> */}
+        {/* <Link to="about/company" className="btn btn-ghost mr-2">
             About Company
           </Link>
         </li>
         <li>
           <Link to="about/team" className="btn btn-ghost mr-2">
             About Team
+          </Link>
+        </li> */}
+        <li>
+          <Link to="menu" className="btn btn-ghost mr-2">
+            Menu
           </Link>
         </li>
       </ul>
