@@ -49,7 +49,7 @@ const App: FC = () => {
 
   const addToCartHandle = (id: number) => {
     const newitems = items.map((item) =>
-      item.id === id ? { ...item, inCart: !item.inCart } : item
+      item.id === id ? { ...item, inCart: !item.inCart, count: 1 } : item
     );
     setItems(newitems);
   };
@@ -63,7 +63,7 @@ const App: FC = () => {
 
   const handleDecrement = (id: number): void => {
     const newCounters = items.map((item) =>
-      item.id === id ? { ...item, inCart: false } : item
+      item.id === id ? { ...item, count: item.count - 1 } : item
     );
     setItems(newCounters);
   };
