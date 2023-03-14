@@ -7,7 +7,7 @@ interface cartProps {
   handleDecrement: (id: number) => void;
   handleDelete: (id: number) => void;
   handelReset: () => void;
-  counters: { id: number; name: string; count: number }[];
+  counters: any;
 }
 
 const Cart: FC<cartProps> = ({
@@ -20,7 +20,7 @@ const Cart: FC<cartProps> = ({
   return (
     <>
       {counters.length === 0 && <h1>Your cart is empty</h1>}
-      {counters.map((counter) => (
+      {counters.map((counter: any) => (
         <Counter
           key={counter.id}
           handleIncrement={handleIncrement}

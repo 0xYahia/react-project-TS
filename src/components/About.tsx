@@ -2,7 +2,6 @@ import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 const About = () => {
   const location = useLocation();
   const [searchParams, setSeatchParams] = useSearchParams();
-  console.log(searchParams.get("sortby"));
   const navigate = useNavigate();
 
   return (

@@ -1,93 +1,36 @@
 import axios from "axios";
-import { useState, useEffect, FC } from "react";
+import { useEffect, FC } from "react";
 import AddToCart from "./AddToCart";
 import Loader from "./Loader";
 
-interface Iitems {
-  id: number;
-  name: string;
-  price: number;
-  category: number;
-  inCart: boolean;
+interface menuProps {
+  currentCategory: number;
+  changeCurrentCategory: (id: number) => void;
+  pageSize: number;
+  addToCartHandle: (id: number) => void;
+  noOfPage: number;
+  currentPage: number;
+  changeCurrentPage: (page: number) => void;
+  categories: {}[];
+  items: {}[];
 }
-interface ICategory {
-  id: number;
-  name: string;
-}
 
-let pageSize = 3;
-
-const Menu: FC = () => {
-  // States
-  const [categories, setCategories] = useState<ICategory[]>([]);
-
-  const [items, setItems] = useState<Iitems[]>([]);
-
-  const [currentCategory, setCurrentCategory] = useState(0);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  // const [noOfPage, noOfPage] = useState(null);
-
-  let noOfPage = 1;
-
-  const changeCurrentCategory = (id: number) => {
-    setCurrentCategory(id);
-    setCurrentPage(1);
-  };
-
-  const changeCurrentPage = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  // Effects
-  // useEffect(() => {
-  //   const intervalID = setInterval(() => {
-  //     console.log("cool interval");
-  //   }, 1000);
-  //   return () => {
-  //     clearInterval(intervalID);
-  //     console.log("cool");
-  //   };
-  // }, [currentCategory]);
-
-  useEffect(() => {
-    // fetch("http://localhost:3000/menu")
-    //   .then((res) => res.json())
-    //   .then((data) => setItems(data));
-    async function getMenu() {
-      try {
-        const { data } = await axios.get("http://localhost:3000/menu");
-        setItems(data);
-      } catch (error) {
-        // Handle error
-      }
-    }
-    async function getCategory() {
-      try {
-        const { data } = await axios.get("http://localhost:3000/categories");
-        setCategories(data);
-      } catch (error) {
-        // Handle error
-      }
-    }
-
-    getMenu();
-    getCategory();
-  }, []);
-
-  // handdler
-  const addToCartHandle = (id: number) => {
-    const newitems = items.map((item) =>
-      item.id === id ? { ...item, inCart: !item.inCart } : item
-    );
-    setItems(newitems);
-  };
-
+const Menu: FC<menuProps> = ({
+  currentCategory,
+  changeCurrentCategory,
+  pageSize,
+  addToCartHandle,
+  noOfPage,
+  currentPage,
+  changeCurrentPage,
+  categories,
+  items,
+}) => {
   // Filter
   let itemsToRender =
     currentCategory === 0
       ? items
-      : items.filter((item) => item.category === currentCategory);
+      : items.filter((item: any) => item.category === currentCategory);
 
   // Pagination
   noOfPage = Math.ceil(itemsToRender.length / pageSize);
@@ -105,7 +48,7 @@ const Menu: FC = () => {
       <div className="grid grid-cols-3 mt-3">
         <div className="col-span-1">
           <div className="btn-group btn-group-vertical">
-            {categories.map((category) => (
+            {categories.map((category: any) => (
               <button
                 onClick={() => changeCurrentCategory(category.id)}
                 className={`btn ${
@@ -136,7 +79,7 @@ const Menu: FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {itemsToRender.map((item) => (
+                {itemsToRender.map((item: any) => (
                   <tr key={item.id}>
                     <td>{item.name}</td>
                     <td>{item.price}</td>
