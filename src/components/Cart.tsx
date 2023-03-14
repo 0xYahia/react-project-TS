@@ -18,19 +18,23 @@ const Cart: FC<cartProps> = ({
   counters,
 }) => {
   return (
-    <>
-      {counters.length === 0 && <h1>Your cart is empty</h1>}
-      {counters.map((counter: any) => (
-        <Counter
-          key={counter.id}
-          handleIncrement={handleIncrement}
-          handleDecrement={handleDecrement}
-          handleDelete={handleDelete}
-          counter={counter}
-        />
-      ))}
-      {counters.length !== 0 && <Reset handelReset={handelReset} />}
-    </>
+    <div className="flex justify-center">
+      <div>
+        {counters.length === 0 && <h1>Your cart is empty</h1>}
+        {counters.map((counter: any) => (
+          <Counter
+            key={counter.id}
+            handleIncrement={handleIncrement}
+            handleDecrement={handleDecrement}
+            handleDelete={handleDelete}
+            counter={counter}
+          />
+        ))}
+      </div>
+      <div className="rest">
+        {counters.length !== 0 && <Reset handelReset={handelReset} />}
+      </div>
+    </div>
   );
 };
 

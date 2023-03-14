@@ -14,12 +14,14 @@ const Counter: FC<counterProps> = ({
   handleDelete,
 }) => {
   return (
-    <div className="w-96 grid grid-cols-5 mt-5 justify-evenly">
-      <span className="font-bold flex justify-center">{counter.name}</span>
+    <div className="w-96 grid grid-cols-8 mt-5">
+      <div className="col-span-3">
+        <span className="font-bold flex justify-center">{counter.name}</span>
+      </div>
       <div className="flex justify-center">
         <button
           className="btn btn-warning btn-sm w-12"
-          onClick={() => handleDecrement(counter.id)}
+          onClick={() => counter.count > 0 && handleDecrement(counter.id)}
         >
           -
         </button>
