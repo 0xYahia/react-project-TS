@@ -30,6 +30,11 @@ const Header = () => {
             Menu
           </Link>
         </li>
+        <li>
+          <Link to="cart" className="btn btn-ghost mr-2">
+            Cart
+          </Link>
+        </li>
       </ul>
     </header>
   );

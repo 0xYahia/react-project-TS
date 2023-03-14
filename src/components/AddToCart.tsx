@@ -1,8 +1,8 @@
 import { FC } from "react";
 interface addToCartPrpos {
   inCart: boolean;
-  id: string;
-  addToCartHandle: (id: string) => void;
+  id: number;
+  addToCartHandle: (id: number) => void;
 }
 const AddToCart: FC<addToCartPrpos> = ({ inCart, id, addToCartHandle }) => {
   return (
