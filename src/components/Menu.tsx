@@ -1,88 +1,82 @@
-import { useState } from "react";
-import { v4 as uuid } from "uuid";
+import axios from "axios";
+import { useState, useEffect, FC } from "react";
 import AddToCart from "./AddToCart";
+import Loader from "./Loader";
 
-const Menu = () => {
-  const [categories, setCategories] = useState([
-    { id: uuid(), name: "All" },
-    { id: uuid(), name: "Burger" },
-    { id: uuid(), name: "Fries" },
-    { id: uuid(), name: "Cola" },
-  ]);
+interface Iitems {
+  id: number;
+  name: string;
+  price: number;
+  category: number;
+  inCart: boolean;
+}
+interface ICategory {
+  id: number;
+  name: string;
+}
 
-  const [items, setItems] = useState([
-    {
-      id: uuid(),
-      name: "Small Burger",
-      price: 50,
-      inCart: false,
-      category: categories[1].id,
-    },
-    {
-      id: uuid(),
-      name: "Medium Burger",
-      price: 60,
-      inCart: false,
-      category: categories[1].id,
-    },
-    {
-      id: uuid(),
-      name: "Large Burger",
-      price: 70,
-      inCart: false,
-      category: categories[1].id,
-    },
-    {
-      id: uuid(),
-      name: "Small Fries",
-      price: 20,
-      inCart: false,
-      category: categories[2].id,
-    },
-    {
-      id: uuid(),
-      name: "Medium Fries",
-      price: 30,
-      inCart: false,
-      category: categories[2].id,
-    },
-    {
-      id: uuid(),
-      name: "Large Fries",
-      price: 40,
-      inCart: false,
-      category: categories[2].id,
-    },
-    {
-      id: uuid(),
-      name: "Small Cola",
-      price: 5,
-      inCart: false,
-      category: categories[3].id,
-    },
-    {
-      id: uuid(),
-      name: "Medium Cola",
-      price: 10,
-      inCart: false,
-      category: categories[3].id,
-    },
-    {
-      id: uuid(),
-      name: "Large Cola",
-      price: 15,
-      inCart: false,
-      category: categories[3].id,
-    },
-  ]);
+let pageSize = 3;
 
-  const [currentCategory, setCurrentCategory] = useState(categories[0].id);
+const Menu: FC = () => {
+  // States
+  const [categories, setCategories] = useState<ICategory[]>([]);
 
-  const changeCurrentCategory = (id: string) => {
+  const [items, setItems] = useState<Iitems[]>([]);
+
+  const [currentCategory, setCurrentCategory] = useState(0);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  // const [noOfPage, noOfPage] = useState(null);
+
+  let noOfPage = 1;
+
+  const changeCurrentCategory = (id: number) => {
     setCurrentCategory(id);
+    setCurrentPage(1);
   };
 
-  const addToCartHandle = (id: string) => {
+  const changeCurrentPage = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  // Effects
+  // useEffect(() => {
+  //   const intervalID = setInterval(() => {
+  //     console.log("cool interval");
+  //   }, 1000);
+  //   return () => {
+  //     clearInterval(intervalID);
+  //     console.log("cool");
+  //   };
+  // }, [currentCategory]);
+
+  useEffect(() => {
+    // fetch("http://localhost:3000/menu")
+    //   .then((res) => res.json())
+    //   .then((data) => setItems(data));
+    async function getMenu() {
+      try {
+        const { data } = await axios.get("http://localhost:3000/menu");
+        setItems(data);
+      } catch (error) {
+        // Handle error
+      }
+    }
+    async function getCategory() {
+      try {
+        const { data } = await axios.get("http://localhost:3000/categories");
+        setCategories(data);
+      } catch (error) {
+        // Handle error
+      }
+    }
+
+    getMenu();
+    getCategory();
+  }, []);
+
+  // handdler
+  const addToCartHandle = (id: number) => {
     const newitems = items.map((item) =>
       item.id === id ? { ...item, inCart: !item.inCart } : item
     );
@@ -90,11 +84,22 @@ const Menu = () => {
   };
 
   // Filter
-  const itemsToRender =
-    currentCategory === categories[0].id
+  let itemsToRender =
+    currentCategory === 0
       ? items
       : items.filter((item) => item.category === currentCategory);
 
+  // Pagination
+  noOfPage = Math.ceil(itemsToRender.length / pageSize);
+
+  const pages = Array(noOfPage)
+    .fill(0)
+    .map((item, i) => i + 1);
+  const start = currentPage * pageSize - pageSize;
+  const end = start + pageSize;
+
+  itemsToRender = itemsToRender.slice(start, end);
+  //UI
   return (
     <>
       <div className="grid grid-cols-3 mt-3">
@@ -113,33 +118,56 @@ const Menu = () => {
             ))}
           </div>
         </div>
+        {/* Menu */}
         <div className="col-span-2">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {itemsToRender.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.name}</td>
-                  <td>{item.price}</td>
-                  <td>
-                    <AddToCart
-                      inCart={item.inCart}
-                      id={item.id}
-                      addToCartHandle={addToCartHandle}
-                    />
-                  </td>
+          {/* TODO: to fix loader */}
+          {items.length === 0 && (
+            <div className="flex justify-center">
+              <Loader />
+            </div>
+          )}
+          {items.length !== 0 && (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {itemsToRender.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.name}</td>
+                    <td>{item.price}</td>
+                    <td>
+                      <AddToCart
+                        inCart={item.inCart}
+                        id={item.id}
+                        addToCartHandle={addToCartHandle}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
+      {/* Pagination */}
+      {pages.length > 1 && (
+        <div className="btn-group flex justify-center">
+          {pages.map((page) => (
+            <button
+              onClick={() => changeCurrentPage(page)}
+              key={page}
+              className={`btn ${page === currentPage ? "btn-active" : ""}`}
+            >
+              {page}
+            </button>
+          ))}
+        </div>
+      )}
     </>
   );
 };
