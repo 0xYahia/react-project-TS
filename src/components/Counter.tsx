@@ -1,6 +1,6 @@
 import Trash from "../assets/icons/Trash";
 import { FC } from "react";
-interface counterProps {
+export interface counterProps {
   handleIncrement: (id: number) => void;
   handleDecrement: (id: number) => void;
   handleDelete: (id: number) => void;

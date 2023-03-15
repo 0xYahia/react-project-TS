@@ -10,22 +10,11 @@ import Menu from "./components/Menu";
 import Home from "./components/Home";
 import axios from "axios";
 
-interface Iitems {
-  id: number;
-  name: string;
-  price: number;
-  category: number;
-  inCart: boolean;
-  count: number;
-}
-interface ICategory {
-  id: number;
-  name: string;
-}
+import { Iitems, ICategory } from "./components/types/Itypes";
 
 let pageSize = 3;
 
-const App: FC = () => {
+const App: FC<Iitems> = ({}) => {
   // ------------- States ------------------
   const [categories, setCategories] = useState<ICategory[]>([]);
 

@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import CartIcon from "../assets/icons/CartIcon";
 import { FC } from "react";
-interface headerProps {
+import { Iitems } from "./types/Itypes";
+
+export interface headerProps {
   itemsInCart: any;
 }
 

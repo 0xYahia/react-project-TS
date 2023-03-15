@@ -1,9 +1,8 @@
-import axios from "axios";
-import { useEffect, FC } from "react";
+import { FC } from "react";
 import AddToCart from "./AddToCart";
 import Loader from "./Loader";
 
-interface menuProps {
+export interface menuProps {
   currentCategory: number;
   changeCurrentCategory: (id: number) => void;
   pageSize: number;
@@ -14,7 +13,6 @@ interface menuProps {
   categories: {}[];
   items: {}[];
 }
-
 const Menu: FC<menuProps> = ({
   currentCategory,
   changeCurrentCategory,
