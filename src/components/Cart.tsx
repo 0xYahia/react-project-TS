@@ -1,8 +1,7 @@
 import Counter from "./Counter";
 import Reset from "./Reset";
 import { FC } from "react";
-
-interface cartProps {
+export interface cartProps {
   handleIncrement: (id: number) => void;
   handleDecrement: (id: number) => void;
   handleDelete: (id: number) => void;

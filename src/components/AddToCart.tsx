@@ -1,9 +1,10 @@
 import { FC } from "react";
-interface addToCartPrpos {
+export interface addToCartPrpos {
   inCart: boolean;
   id: number;
   addToCartHandle: (id: number) => void;
 }
+
 const AddToCart: FC<addToCartPrpos> = ({ inCart, id, addToCartHandle }) => {
   return (
     <>

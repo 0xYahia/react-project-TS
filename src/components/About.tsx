@@ -1,7 +1,5 @@
-import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const About = () => {
-  const location = useLocation();
-  const [searchParams, setSeatchParams] = useSearchParams();
   const navigate = useNavigate();
 
   return (
