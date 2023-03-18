@@ -11,6 +11,7 @@ import Home from "./components/Home";
 import axios from "axios";
 
 import { Iitems, ICategory } from "./components/types/Itypes";
+import Login from "./components/Login";
 
 let pageSize = 3;
 
@@ -51,10 +52,10 @@ const App: FC<Iitems> = ({}) => {
   };
 
   const handleDecrement = (id: number): void => {
-    const newCounters = items.map((item) =>
+    const newItems = items.map((item) =>
       item.id === id ? { ...item, count: item.count - 1 } : item
     );
-    setItems(newCounters);
+    setItems(newItems);
   };
 
   const handelReset = (): void => {
@@ -64,7 +65,9 @@ const App: FC<Iitems> = ({}) => {
   };
 
   const handleDelete = (id: number): void => {
-    const newCounters = items.filter((item) => item.id !== id);
+    const newCounters = items.map((item) =>
+      item.id === id ? { ...item, inCart: false } : item
+    );
     setItems(newCounters);
   };
 
@@ -130,6 +133,7 @@ const App: FC<Iitems> = ({}) => {
               />
             }
           />
+          <Route path="/login" element={<Login />} />
           <Route path="/product/:productid/:country?" element={<Product />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

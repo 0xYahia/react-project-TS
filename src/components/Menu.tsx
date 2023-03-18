@@ -41,6 +41,7 @@ const Menu: FC<menuProps> = ({
 
   itemsToRender = itemsToRender.slice(start, end);
   //UI
+
   return (
     <>
       <div className="grid grid-cols-3 mt-3">

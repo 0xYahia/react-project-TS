@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import CartIcon from "../assets/icons/CartIcon";
 import { FC } from "react";
-import { Iitems } from "./types/Itypes";
 
 export interface headerProps {
   itemsInCart: any;
@@ -14,22 +13,31 @@ const Header: FC<headerProps> = ({ itemsInCart }) => {
         <h1>Burgger Menu</h1>
         <ul className="flex gap-4">
           <li>
-            <Link to="" className="btn btn-ghost mr-2">
+            <NavLink
+              to=""
+              className={({ isActive }) => (isActive ? "font-bold " : "")}
+            >
               Home
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="about" className="btn btn-ghost mr-2">
+            <NavLink
+              to="about"
+              className={({ isActive }) => (isActive ? "font-bold" : "")}
+            >
               About
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="menu" className="btn btn-ghost mr-2">
+            <NavLink
+              to="menu"
+              className={({ isActive }) => (isActive ? "font-bold" : "")}
+            >
               Menu
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="cart" className="btn btn-ghost mr-2">
+            <Link to="cart">
               <div className="relative">
                 <CartIcon />
                 {itemsInCart !== 0 && (
