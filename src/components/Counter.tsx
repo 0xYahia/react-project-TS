@@ -13,6 +13,8 @@ const Counter: FC<counterProps> = ({
   handleDecrement,
   handleDelete,
 }) => {
+  // console.log("rerender id:", counter.id);
+
   return (
     <div className="w-96 grid grid-cols-8 mt-5">
       <div className="col-span-3">
