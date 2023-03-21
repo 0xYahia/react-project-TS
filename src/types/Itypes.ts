@@ -6,6 +6,9 @@ export interface Iitems {
   inCart: boolean;
   count: number;
 }
+// export interface Iitems {
+//   itemInCaet: Iitems[]
+// }
 export interface ICategory {
   id: number;
   name: string;

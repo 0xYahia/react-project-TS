@@ -29,6 +29,7 @@ const Menu: FC<menuProps> = ({
     currentCategory === 0
       ? items
       : items.filter((item: any) => item.category === currentCategory);
+  // Filter in backend
 
   // Pagination
   noOfPage = Math.ceil(itemsToRender.length / pageSize);
