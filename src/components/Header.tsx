@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import CartIcon from "../assets/icons/CartIcon";
 import { FC } from "react";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 export interface headerProps {
   itemsInCart: any;
@@ -47,6 +48,9 @@ const Header: FC<headerProps> = ({ itemsInCart }) => {
                 )}
               </div>
             </Link>
+          </li>
+          <li>
+            <ThemeSwitcher />
           </li>
         </ul>
       </header>

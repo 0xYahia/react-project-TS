@@ -1,5 +1,5 @@
 import Trash from "../assets/icons/Trash";
-import { FC } from "react";
+import { FC, memo } from "react";
 export interface counterProps {
   handleIncrement: (id: number) => void;
   handleDecrement: (id: number) => void;
@@ -13,8 +13,6 @@ const Counter: FC<counterProps> = ({
   handleDecrement,
   handleDelete,
 }) => {
-  // console.log("rerender id:", counter.id);
-
   return (
     <div className="w-96 grid grid-cols-8 mt-5">
       <div className="col-span-3">
@@ -51,4 +49,4 @@ const Counter: FC<counterProps> = ({
   );
 };
 
-export default Counter;
+export default memo(Counter);

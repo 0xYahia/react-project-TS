@@ -6,7 +6,7 @@ const Login = () => {
 
   const [errors, setErrors] = useState(null);
 
-  const emailRef = useRef();
+  const emailRef = useRef<HTMLInputElement>(null);
   const formSchema = object({
     email: string().email().required(),
     password: string().required(),
@@ -25,7 +25,7 @@ const Login = () => {
         errors[error.path] = error.message;
       });
       setErrors(errors);
-      emailRef.current.focus();
+      emailRef.current?.focus();
     }
   };
 
